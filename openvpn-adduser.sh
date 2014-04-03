@@ -90,9 +90,8 @@ export KEY_CN=$vpnuser
 . /etc/openvpn/easy-rsa/2.0/pkitool $vpnuser > /dev/null
 clear
 echo "Configuration OpenVPN en cours....."
-. /etc/openvpn/easy-rsa/2.0/build-dh > /dev/null
 cd /etc/openvpn/easy-rsa/2.0/keys
-cp $vpnuser.crt $vpnuser.key ca.cart /etc/openvpn/certs/
+cp $vpnuser.crt $vpnuser.key ca.crt /etc/openvpn/certs/
 cd /etc/openvpn/certs/
 
 #zip + upload des certificats client
