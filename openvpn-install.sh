@@ -19,7 +19,7 @@ echo "Installation des logiciels necessaires en cours...."
 apt-get dist-upgrade -y > /dev/null
 clear
 echo "Installation des logiciels necessaires en cours....."
-apt-get install -y --force-yes openvpn zip plowshare4 openssl > /dev/null
+apt-get install -y --force-yes openvpn plowshare4 openssl > /dev/null
 clear
 echo "Installation des logiciels necessaires en cours......."
 service openvpn stop
@@ -102,10 +102,7 @@ nobind
 persist-key
 persist-tun
 verb 3
-ns-cert-type server
-ca ca.crt
-cert $vpnuser.crt
-key $vpnuser.key" > /etc/openvpn/certs/vpn.ovpn
+ns-cert-type server" > /etc/openvpn/certs/$vpnuser.ovpn
 
 #creation des certificats
 cp -R /usr/share/doc/openvpn/examples/easy-rsa/ /etc/openvpn
@@ -129,14 +126,21 @@ clear
 echo "Configuration OpenVPN en cours....."
 . /etc/openvpn/easy-rsa/2.0/build-dh > /dev/null
 cd /etc/openvpn/easy-rsa/2.0/keys
+
+echo "<ca>" >> /etc/openvpn/certs/$vpnuser.ovpn
+cat ca.crt >> /etc/openvpn/certs/$vpnuser.ovpn
+echo "</ca" >> /etc/openvpn/certs/$vpnuser.ovpn
+echo "<cert>" >> /etc/openvpn/certs/$vpnuser.ovpn
+cat $vpnuser.crt >> /etc/openvpn/certs/$vpnuser.ovpn
+echo "</cert>" >> /etc/openvpn/certs/$vpnuser.ovpn
+echo "<key>" >> /etc/openvpn/certs/$vpnuser.ovpn
+cat $vpnuser.crt >> /etc/openvpn/certs/$vpnuser.ovpn
+echo "</key>" >> /etc/openvpn/certs/$vpnuser.ovpn
 cp ca.crt ca.key dh1024.pem server.crt server.key /etc/openvpn
-cp $vpnuser.crt $vpnuser.key ca.crt /etc/openvpn/certs/
 cd /etc/openvpn/certs/
 
-#zip + upload des certificats client
-zip -q /etc/openvpn/certs/$vpnuser.zip ca.crt $vpnuser.crt $vpnuser.key vpn.ovpn > /dev/null
-plowup -q dl.free.fr --email-to=$vpnemail /etc/openvpn/certs/$vpnuser.zip
-rm $vpnuser.crt $vpnuser.key
+#upload du fichier config client
+plowup -q dl.free.fr --email-to=$vpnemail /etc/openvpn/certs/$vpnuser.ovpn
 clear
 
 #configuration ipforward+iptables
