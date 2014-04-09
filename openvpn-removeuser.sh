@@ -16,4 +16,8 @@ if [ -z "$vpnuser" ]
 fi
 . /etc/openvpn/easy-rsa/2.0/vars > /dev/null
 . /etc/openvpn/easy-rsa/2.0/revoke-full $vpnuser > /dev/null
+rm /etc/openvpn/easy-rsa/2.0/keys/$vpnuser.crt
+rm /etc/openvpn/easy-rsa/2.0/keys/$vpnuser.key
+rm /etc/openvpn/easy-rsa/2.0/keys/$vpnuser.csr
+clear
 echo  "Identifiant: $vpnuser est desormais supprimé"
