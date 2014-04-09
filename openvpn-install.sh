@@ -163,4 +163,4 @@ apt-get autoremove -y > /dev/null
 clear
 
 echo "Installation terminee, verifiez dans votre boite email pour recuperer votre fichier de configuration."
-echo "Il y a de forte chance qu'il soit dans votre SPAM!"
+echo "Verifiez bien dans votre boite SPAM!"
