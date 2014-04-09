@@ -19,7 +19,7 @@ echo "Installation des logiciels necessaires en cours...."
 apt-get dist-upgrade -y > /dev/null
 clear
 echo "Installation des logiciels necessaires en cours....."
-apt-get install -y --force-yes openvpn plowshare4 openssl > /dev/null
+apt-get install -y --force-yes openvpn plowshare4 mutt openssl > /dev/null
 clear
 echo "Installation des logiciels necessaires en cours......."
 service openvpn stop
@@ -140,7 +140,7 @@ cp ca.crt ca.key dh1024.pem server.crt server.key /etc/openvpn
 cd /etc/openvpn/certs/
 
 #upload du fichier config client
-plowup -q dl.free.fr --email-to=$vpnemail /etc/openvpn/certs/$vpnuser.ovpn
+mutt $vpnemail -s "Fichier de configuration client OpenVPN" -a /etc/openvpn/certs/$vpnuser.ovpn < /dev/null
 clear
 
 #configuration ipforward+iptables
@@ -162,4 +162,5 @@ rm /etc/apt/sources.list.d/plowshare.list
 apt-get autoremove -y > /dev/null
 clear
 
-echo "Installation terminee, verifiez votre boite email pour recuperer votre fichier de configuration."
+echo "Installation terminee, verifiez dans votre boite email pour recuperer votre fichier de configuration."
+echo "Il y a de forte chance qu'il soit dans votre SPAM!"
