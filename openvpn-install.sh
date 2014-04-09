@@ -7,9 +7,6 @@ fi
 #installation packages
 clear
 echo "Installation des logiciels necessaires en cours."
-echo "deb http://mcrapet.free.fr/debian/ unstable/" > /etc/apt/sources.list.d/plowshare.list
-clear
-echo "Installation des logiciels necessaires en cours.."
 apt-get update -y > /dev/null
 clear
 echo "Installation des logiciels necessaires en cours..."
@@ -19,7 +16,7 @@ echo "Installation des logiciels necessaires en cours...."
 apt-get dist-upgrade -y > /dev/null
 clear
 echo "Installation des logiciels necessaires en cours....."
-apt-get install -y --force-yes openvpn plowshare4 mutt openssl > /dev/null
+apt-get install -y --force-yes openvpn mutt openssl > /dev/null
 clear
 echo "Installation des logiciels necessaires en cours......."
 service openvpn stop
@@ -157,8 +154,7 @@ clear
 echo "Configuration OpenVPN en cours......."
 
 #nettoyage des packages
-apt-get remove -y plowshare4 > /dev/null
-rm /etc/apt/sources.list.d/plowshare.list
+apt-get remove -y mutt > /dev/null
 apt-get autoremove -y > /dev/null
 clear
 
