@@ -129,12 +129,12 @@ cd /etc/openvpn/easy-rsa/2.0/keys
 
 echo "<ca>" >> /etc/openvpn/certs/$vpnuser.ovpn
 cat ca.crt >> /etc/openvpn/certs/$vpnuser.ovpn
-echo "</ca" >> /etc/openvpn/certs/$vpnuser.ovpn
+echo "</ca>" >> /etc/openvpn/certs/$vpnuser.ovpn
 echo "<cert>" >> /etc/openvpn/certs/$vpnuser.ovpn
 cat $vpnuser.crt >> /etc/openvpn/certs/$vpnuser.ovpn
 echo "</cert>" >> /etc/openvpn/certs/$vpnuser.ovpn
 echo "<key>" >> /etc/openvpn/certs/$vpnuser.ovpn
-cat $vpnuser.crt >> /etc/openvpn/certs/$vpnuser.ovpn
+cat $vpnuser.key >> /etc/openvpn/certs/$vpnuser.ovpn
 echo "</key>" >> /etc/openvpn/certs/$vpnuser.ovpn
 cp ca.crt ca.key dh1024.pem server.crt server.key /etc/openvpn
 cd /etc/openvpn/certs/
