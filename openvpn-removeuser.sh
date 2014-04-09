@@ -14,5 +14,6 @@ if [ -z "$vpnuser" ]
 	echo -n "Entrez l'identifiant a DESACTIVER: "
 	read -e vpnuser
 fi
-. /etc/openvpn/easy-rsa/2.0/revoke-full $vpnuser
+. /etc/openvpn/easy-rsa/2.0/vars > /dev/null
+. /etc/openvpn/easy-rsa/2.0/revoke-full $vpnuser > /dev/null
 echo  "Identifiant: $vpnuser est desormais supprimé"
