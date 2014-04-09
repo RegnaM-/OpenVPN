@@ -7,8 +7,6 @@ fi
 #installation packages
 clear
 echo "Installation des logiciels necessaires en cours."
-echo "deb http://mcrapet.free.fr/debian/ unstable/" > /etc/apt/sources.list.d/plowshare.list
-clear
 echo "Installation des logiciels necessaires en cours.."
 apt-get update -y > /dev/null
 clear
@@ -19,7 +17,7 @@ echo "Installation des logiciels necessaires en cours...."
 apt-get dist-upgrade -y > /dev/null
 clear
 echo "Installation des logiciels necessaires en cours....."
-apt-get install -y --force-yes zip plowshare4 openssl > /dev/null
+apt-get install -y --force-yes mutt openssl > /dev/null
 clear
 echo "Installation des logiciels terminee."
 sleep 5
@@ -101,12 +99,10 @@ cp ca.crt ca.key dh1024.pem server.crt server.key /etc/openvpn
 cd /etc/openvpn/certs/
 
 #upload du fichier config client
-plowup -q dl.free.fr --email-to=$vpnemail /etc/openvpn/certs/$vpnuser.ovpn
-clear
+mutt $vpnemail -s "Fichier de configuration client OpenVPN" -a /etc/openvpn/certs/$vpnuser.ovpn < /dev/null
 clear
 #nettoyage des packages
-apt-get remove -y plowshare4 > /dev/null
-rm /etc/apt/sources.list.d/plowshare.list
+apt-get remove -y mutt > /dev/null
 apt-get autoremove -y > /dev/null
 clear
 
