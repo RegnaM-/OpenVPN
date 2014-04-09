@@ -73,10 +73,7 @@ nobind
 persist-key
 persist-tun
 verb 3
-ns-cert-type server
-ca ca.crt
-cert $vpnuser.crt
-key $vpnuser.key" > /etc/openvpn/certs/vpn.ovpn
+ns-cert-type server" > /etc/openvpn/certs/$vpnuser.ovpn
 
 #creation des certificats
 cd /etc/openvpn/easy-rsa/2.0/
@@ -91,13 +88,21 @@ export KEY_CN=$vpnuser
 clear
 echo "Configuration OpenVPN en cours....."
 cd /etc/openvpn/easy-rsa/2.0/keys
-cp $vpnuser.crt $vpnuser.key ca.crt /etc/openvpn/certs/
+echo "<ca>" >> /etc/openvpn/certs/$vpnuser.ovpn
+cat ca.crt >> /etc/openvpn/certs/$vpnuser.ovpn
+echo "</ca>" >> /etc/openvpn/certs/$vpnuser.ovpn
+echo "<cert>" >> /etc/openvpn/certs/$vpnuser.ovpn
+cat $vpnuser.crt >> /etc/openvpn/certs/$vpnuser.ovpn
+echo "</cert>" >> /etc/openvpn/certs/$vpnuser.ovpn
+echo "<key>" >> /etc/openvpn/certs/$vpnuser.ovpn
+cat $vpnuser.key >> /etc/openvpn/certs/$vpnuser.ovpn
+echo "</key>" >> /etc/openvpn/certs/$vpnuser.ovpn
+cp ca.crt ca.key dh1024.pem server.crt server.key /etc/openvpn
 cd /etc/openvpn/certs/
 
-#zip + upload des certificats client
-zip -q /etc/openvpn/certs/$vpnuser.zip ca.crt $vpnuser.crt $vpnuser.key vpn.ovpn > /dev/null
-plowup -q dl.free.fr --email-to=$vpnemail /etc/openvpn/certs/$vpnuser.zip
-rm $vpnuser.crt $vpnuser.key
+#upload du fichier config client
+plowup -q dl.free.fr --email-to=$vpnemail /etc/openvpn/certs/$vpnuser.ovpn
+clear
 clear
 #nettoyage des packages
 apt-get remove -y plowshare4 > /dev/null
