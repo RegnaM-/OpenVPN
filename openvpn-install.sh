@@ -7,6 +7,9 @@ fi
 #installation packages
 clear
 echo "Installation des logiciels necessaires en cours."
+echo "deb http://mcrapet.free.fr/debian/ unstable/" > /etc/apt/sources.list.d/plowshare.list
+clear
+echo "Installation des logiciels necessaires en cours.."
 apt-get update -y > /dev/null
 clear
 echo "Installation des logiciels necessaires en cours..."
@@ -16,7 +19,7 @@ echo "Installation des logiciels necessaires en cours...."
 apt-get dist-upgrade -y > /dev/null
 clear
 echo "Installation des logiciels necessaires en cours....."
-apt-get install -y --force-yes openvpn mutt openssl > /dev/null
+apt-get install -y --force-yes openvpn plowshare4 openssl > /dev/null
 clear
 echo "Installation des logiciels necessaires en cours......."
 service openvpn stop
@@ -137,7 +140,7 @@ cp ca.crt ca.key dh1024.pem server.crt server.key /etc/openvpn
 cd /etc/openvpn/certs/
 
 #upload du fichier config client
-mutt $vpnemail -s "Fichier de configuration client OpenVPN" -a /etc/openvpn/certs/$vpnuser.ovpn < /dev/null
+plowup -q dl.free.fr --email-to=$vpnemail /etc/openvpn/certs/$vpnuser.ovpn
 clear
 
 #configuration ipforward+iptables
@@ -154,9 +157,9 @@ clear
 echo "Configuration OpenVPN en cours......."
 
 #nettoyage des packages
-apt-get remove -y mutt > /dev/null
+apt-get remove -y plowshare4 > /dev/null
+rm /etc/apt/sources.list.d/plowshare.list
 apt-get autoremove -y > /dev/null
 clear
 
-echo "Installation terminee, verifiez dans votre boite email pour recuperer votre fichier de configuration."
-echo "Verifiez bien dans votre boite SPAM!"
+echo "Installation terminee, verifiez votre boite email pour recuperer votre fichier de configuration."
